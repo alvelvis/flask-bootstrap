@@ -40,7 +40,7 @@ $ sudo uvenv/bin/pip3 install -r ../requirements.txt
 
 3) Edit `WSGI.py` file according to the folder in which the app was just installed (keep untouched if you just followed this tutorial): 
 
-$ sudo nano wsgi.py
+`$ sudo nano wsgi.py`
 
 4) Configure the virtual host inside Apache2, creating a new file and pasting the text that follows inside it (Shortcut: Ctrl+X to save the file). Remember to edit the line `ServerName` to the host domain.
 
