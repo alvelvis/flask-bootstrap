@@ -40,7 +40,9 @@ $ sudo uvenv/bin/pip3 install -r ../requirements.txt
 
 3) Edit `WSGI.py` file according to the folder in which the app was just installed (keep untouched if you just followed this tutorial): 
 
-`$ sudo nano wsgi.py`
+```
+$ sudo nano wsgi.py
+```
 
 4) Configure the virtual host inside Apache2, creating a new file and pasting the text that follows inside it (Shortcut: Ctrl+X to save the file). Remember to edit the line `ServerName` to the host domain.
 
@@ -52,8 +54,11 @@ $ sudo nano /etc/apache2/sites-available/flask-bootstrap.conf
 <VirtualHost *:80>
     ServerName domain.com
     DocumentRoot /var/www/flask-bootstrap
+   
+    ErrorLog /var/www/flask-bootstrap/error.log
+    CustomLog /var/www/flask-bootstrap/access.log combined
 
-    WSGIDaemonProcess flask-bootstrap threads=5 python-home=/var/www/flask-bootstrap/flask/uvenv
+#    WSGIDaemonProcess flask-bootstrap threads=5 python-home=/var/www/flask-bootstrap/flask/uvenv
     WSGIScriptAlias / /var/www/flask-bootstrap/flask/wsgi.py
 
     <Directory /var/www/flask-bootstrap>
@@ -66,13 +71,20 @@ $ sudo nano /etc/apache2/sites-available/flask-bootstrap.conf
 </VirtualHost>
 ```
 
-5) Activate the newly created virtual host:
+5) Install certified SSL and uncomment the WSGIDaemonProcess line in the newest file
+
+```
+$ sudo certbot --apache
+$ sudo nano /etc/apache2/sites-available/flask-bootstrap-le-ssl.conf
+```
+
+6) Activate the newly created virtual host:
 
 ```
 $ sudo a2ensite flask-bootstrap
 ```
 
-6) Install and activate the `wsgi` mod:
+7) Install and activate the `wsgi` mod:
 
 ```
 $ sudo apt-get update
@@ -80,7 +92,7 @@ $ sudo apt-get install libapache2-mod-wsgi-py3
 $ sudo a2enmod wsgi
 ```
 
-7) Start (or restart) Apache2:
+8) Start (or restart) Apache2:
 
 ```
 $ sudo service apache2 start
