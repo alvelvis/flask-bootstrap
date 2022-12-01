@@ -92,6 +92,8 @@ $ sudo apt-get install libapache2-mod-wsgi-py3
 $ sudo a2enmod wsgi
 ```
 
+Obs: In case your Apache2 installation already has mod_wsgi installed, it is required that the virtualenv python3 version used for this app is the same as the one that WSGI has been compiled for. For more info, see: https://github.com/GrahamDumpleton/mod_wsgi/issues/467#issuecomment-533934942
+
 8) Start (or restart) Apache2:
 
 ```
